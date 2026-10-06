@@ -365,7 +365,7 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
                           className: "flex items-center gap-3",
                           children: [
                             b.jsx("div", {
-                              className: "w-8 h-8 rounded-full bg-shtp-blue/10 flex items-center justify-center text-shtp-blue group-hover:bg-shtp-blue group-hover:text-white transition-colors shrink-0",
+                              className: "w-8 h-8 rounded-full bg-shtp-blue/10 flex items-center justify-center text-shtp-blue group-hover:bg-shtp-blue group-hover:text-white transition-colors shrink-0 agenda-clock-icon",
                               children: b.jsx(vp, { size: 14 })
                             }),
                             b.jsx("span", { className: "text-xs md:text-sm", children: item.time })
@@ -1008,10 +1008,38 @@ svg.w-4, svg[width="16"], svg[style*="16px"] {
 .bg-shtp-navy { background-color: #003366 !important; }
 .bg-shtp-gold { background-color: #f5a623 !important; }
 .bg-shtp-dark { background-color: #0b2046 !important; }
-.text-shtp-blue { color: #005baa !important; }
-.text-shtp-navy { color: #003366 !important; }
-.text-shtp-gold { color: #f5a623 !important; }
-.text-shtp-dark { color: #0b2046 !important; }
+.text-shtp-blue { color: #005baa; }
+.text-shtp-navy { color: #003366; }
+.text-shtp-gold { color: #f5a623; }
+.text-shtp-dark { color: #0b2046; }
+
+/* Agenda Clock Icon Styles & Hover Effect */
+.agenda-clock-icon {
+  background-color: rgba(0, 91, 170, 0.1) !important;
+  color: #005baa !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.agenda-clock-icon svg {
+  color: #005baa !important;
+  stroke: #005baa !important;
+  transition: stroke 0.2s ease-in-out, color 0.2s ease-in-out !important;
+}
+
+tr:hover .agenda-clock-icon,
+tr.group:hover .agenda-clock-icon,
+.agenda-clock-icon:hover {
+  background-color: #005baa !important;
+  color: #ffffff !important;
+}
+
+tr:hover .agenda-clock-icon svg,
+tr.group:hover .agenda-clock-icon svg,
+.agenda-clock-icon:hover svg,
+.group:hover .group-hover\:text-white svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
 
 /* Gaps */
 .gap-1\.5 { gap: 0.375rem !important; }
