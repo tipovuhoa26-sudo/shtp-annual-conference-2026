@@ -238,16 +238,88 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
               b.jsx("tbody", {
                 children: s.agenda.morningItems.map((item, idx) => {
                   if (item.isSectionHeader) {
+                    const rawTitle = item.title || "";
+                    let badgeText = "";
+                    let mainText = rawTitle;
+                    if (rawTitle.includes(":")) {
+                      const parts = rawTitle.split(":");
+                      badgeText = parts[0].trim();
+                      mainText = parts.slice(1).join(":").trim();
+                    } else if (rawTitle.toUpperCase().startsWith("LỄ KHAI MẠC")) {
+                      badgeText = "LỄ KHAI MẠC";
+                      mainText = rawTitle.substring("LỄ KHAI MẠC".length).trim().replace(/^[-–—:]\s*/, "");
+                    } else if (rawTitle.toUpperCase().startsWith("OPENING CEREMONY")) {
+                      badgeText = "OPENING CEREMONY";
+                      mainText = rawTitle.substring("OPENING CEREMONY".length).trim().replace(/^[-–—:]\s*/, "");
+                      if (mainText.toUpperCase().startsWith("OF ")) {
+                        mainText = mainText.substring(3).trim();
+                      }
+                    }
+
                     return b.jsx("tr", {
-                      className: "bg-gradient-to-r from-shtp-dark via-shtp-blue to-shtp-navy text-white",
+                      style: { backgroundColor: "#071938" },
                       children: b.jsx("td", {
                         colSpan: 3,
-                        className: "py-4 px-6 font-bold text-xs md:text-sm tracking-wide",
+                        style: {
+                          background: "linear-gradient(90deg, #071938 0%, #0d2757 60%, #071938 100%)",
+                          borderLeft: "5px solid #f5a623",
+                          borderTop: "1px solid #1a3a6e",
+                          borderBottom: "1px solid #1a3a6e",
+                          padding: "14px 20px"
+                        },
                         children: b.jsxs("div", {
-                          className: "flex items-center gap-3",
+                          className: "flex items-center gap-3 flex-wrap",
                           children: [
-                            b.jsx("span", { className: "w-2.5 h-2.5 rounded-full bg-shtp-gold shadow-[0_0_10px_#ffcc00] shrink-0" }),
-                            b.jsx("span", { className: "text-white font-extrabold uppercase", children: item.title })
+                            badgeText ? b.jsxs("span", {
+                              style: {
+                                background: "#f5a623",
+                                color: "#071938",
+                                fontWeight: "800",
+                                fontSize: "11px",
+                                padding: "4px 10px",
+                                borderRadius: "6px",
+                                letterSpacing: "0.05em",
+                                textTransform: "uppercase",
+                                whiteSpace: "nowrap",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "6px",
+                                boxShadow: "0 2px 6px rgba(245, 166, 35, 0.3)"
+                              },
+                              children: [
+                                b.jsx("span", {
+                                  style: {
+                                    width: "6px",
+                                    height: "6px",
+                                    borderRadius: "50%",
+                                    backgroundColor: "#071938",
+                                    display: "inline-block"
+                                  }
+                                }),
+                                badgeText
+                              ]
+                            }) : b.jsx("span", {
+                              style: {
+                                width: "10px",
+                                height: "10px",
+                                borderRadius: "50%",
+                                backgroundColor: "#f5a623",
+                                boxShadow: "0 0 10px #f5a623",
+                                flexShrink: 0,
+                                display: "inline-block"
+                              }
+                            }),
+                            b.jsx("span", {
+                              style: {
+                                color: "#ffffff",
+                                fontWeight: "800",
+                                fontSize: "14px",
+                                letterSpacing: "0.025em",
+                                textTransform: "uppercase",
+                                textShadow: "0 1px 3px rgba(0, 0, 0, 0.6)"
+                              },
+                              children: mainText
+                            })
                           ]
                         })
                       })
