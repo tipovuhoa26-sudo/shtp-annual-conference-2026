@@ -3,3 +3,7 @@ node_modules/
 .DS_Store
 *.tmp
 *.log
+*.backup.html
+*.docx
+*.doc
+speaker_images/
