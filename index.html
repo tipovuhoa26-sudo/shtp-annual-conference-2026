@@ -584,48 +584,31 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
               children: s.agenda.parallelSessions.map((session) => {
                 const isOpen = !!expandedSessions[session.id];
                 return b.jsxs("div", {
-                  className: "border-2 rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col " +
+                  className: "border-2 rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between " +
                     (isOpen ? "border-shtp-blue ring-2 ring-shtp-blue/20" : "border-slate-200 hover:border-slate-300"),
                   children: [
                     b.jsxs("div", {
-                      className: "p-6 cursor-pointer select-none",
+                      className: "p-6 cursor-pointer select-none flex flex-col flex-1",
                       onClick: () => toggleSession(session.id),
                       children: [
                         b.jsxs("div", {
-                          className: "flex items-center justify-between gap-3 mb-3",
+                          className: "flex items-center justify-between gap-3 mb-2.5",
                           children: [
                             b.jsxs("div", {
-                              className: "flex items-center gap-2 flex-wrap",
+                              className: "flex items-center gap-2",
                               children: [
                                 b.jsx("span", {
-                                  className: "text-white text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm " + session.badgeColor,
+                                  className: "text-white text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-xs " + session.badgeColor,
                                   children: session.number
                                 }),
                                 b.jsxs("span", {
-                                  className: "inline-flex items-center gap-1 text-slate-500 text-xs font-bold",
+                                  className: "inline-flex items-center gap-1 text-slate-500 text-xs font-bold bg-slate-100/90 px-2.5 py-1 rounded-full",
                                   children: [b.jsx(vp, { size: 12 }), session.time]
-                                }),
-                                (session.hall || session.location) && b.jsxs("span", {
-                                  className: "inline-flex items-center gap-1.5 bg-amber-50 text-amber-900 border border-amber-200/90 px-2.5 py-0.5 rounded-full text-xs font-bold shadow-xs",
-                                  children: [
-                                    b.jsx("svg", {
-                                      className: "w-3 h-3 text-amber-600 shrink-0",
-                                      viewBox: "0 0 24 24",
-                                      fill: "currentColor",
-                                      children: b.jsx("path", {
-                                        d: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"
-                                      })
-                                    }),
-                                    b.jsx("strong", {
-                                      className: "text-amber-950 font-extrabold",
-                                      children: session.hall || session.location
-                                    })
-                                  ]
                                 })
                               ]
                             }),
                             b.jsx("div", {
-                              className: "w-8 h-8 rounded-full flex items-center justify-center transition-colors " + (isOpen ? "bg-shtp-blue text-white" : "bg-slate-100 text-slate-500"),
+                              className: "w-8 h-8 rounded-full flex items-center justify-center transition-colors shrink-0 " + (isOpen ? "bg-shtp-blue text-white" : "bg-slate-100 text-slate-500"),
                               children: b.jsx("svg", {
                                 className: "w-4 h-4 shrink-0",
                                 width: 16,
@@ -645,16 +628,33 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
                             })
                           ]
                         }),
+                        (session.hall || session.location) && b.jsxs("div", {
+                          className: "inline-flex items-center gap-1.5 bg-amber-50/90 text-amber-900 border border-amber-200/90 px-2.5 py-1 rounded-lg text-xs font-bold shadow-2xs mb-3.5 self-start",
+                          children: [
+                            b.jsx("svg", {
+                              className: "w-3.5 h-3.5 text-amber-600 shrink-0",
+                              viewBox: "0 0 24 24",
+                              fill: "currentColor",
+                              children: b.jsx("path", {
+                                d: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"
+                              })
+                            }),
+                            b.jsx("strong", {
+                              className: "text-amber-950 font-extrabold tracking-tight",
+                              children: session.hall || session.location
+                            })
+                          ]
+                        }),
                         b.jsx("h4", {
-                          className: "font-headline font-extrabold text-base md:text-lg text-shtp-dark leading-snug mb-3 hover:text-shtp-blue transition-colors",
+                          className: "font-headline font-extrabold text-base md:text-lg text-shtp-dark leading-snug mb-3 hover:text-shtp-blue transition-colors min-h-[5.25rem] flex items-start",
                           children: session.title
                         }),
                         !isOpen && b.jsxs("div", {
-                          className: "flex flex-wrap items-center gap-1.5 mt-2",
+                          className: "flex flex-wrap items-center gap-1.5 mt-auto pt-3 border-t border-slate-100 min-h-[4.5rem]",
                           children: [
-                            b.jsx("span", { className: "text-[11px] font-bold text-slate-400 uppercase tracking-wide", children: (session.speakerTag || s.agenda.speakerTag) + ":" }),
+                            b.jsx("span", { className: "text-[11px] font-bold text-slate-400 uppercase tracking-wide mr-1", children: (session.speakerTag || s.agenda.speakerTag) + ":" }),
                             session.speakers.map((sp, spIdx) => b.jsx("span", {
-                              className: "bg-slate-100 text-slate-700 text-xs font-semibold px-2 py-0.5 rounded-md",
+                              className: "bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-slate-200/50 shadow-2xs",
                               children: sp.name
                             }, spIdx))
                           ]
