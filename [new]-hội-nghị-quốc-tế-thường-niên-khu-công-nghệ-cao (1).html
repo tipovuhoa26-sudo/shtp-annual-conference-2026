@@ -306,54 +306,11 @@ function getShtpSpeakers(i) {
   ];
 }
 
-function findSpeakerInList(speakerText, speakersList, i) {
-  if (!speakerText) return null;
-  const sUpper = speakerText.toUpperCase();
-  if (sUpper.includes("ĐẶNG MINH THÔNG") || sUpper.includes("DANG MINH THONG")) {
-    return {
-      name: i === "vi" ? "Đ/c Đặng Minh Thông" : "Comrade Dang Minh Thong",
-      role: i === "vi" ? "Phó Bí thư Thành uỷ TP. Hồ Chí Minh" : "Deputy Secretary of HCMC Party Committee",
-      image: "https://cdn.haitrieu.com/wp-content/uploads/2022/07/Thanh-pho-Ho-Chi-Minh-1-1024x1024.png",
-      fallback: "https://cdn.haitrieu.com/wp-content/uploads/2022/07/Thanh-pho-Ho-Chi-Minh-1-1024x1024.png",
-      imageClass: "object-contain p-1 bg-white"
-    };
-  }
-  if (sUpper.includes("SHTP-IC") || sUpper.includes("VƯỜN ƯƠM") || sUpper.includes("INCUBATION CENTER")) {
-    return {
-      name: "SHTP-IC",
-      role: i === "vi" ? "Vườn ươm Doanh nghiệp Công nghệ cao" : "Saigon Hi-Tech Park Incubation Center",
-      image: "https://shtp.hochiminhcity.gov.vn/Portals/0/logo-shtp.svg",
-      fallback: "https://shtp.hochiminhcity.gov.vn/Portals/0/logo-shtp.svg",
-      imageClass: "object-contain p-1.5 bg-white"
-    };
-  }
-  for (let idx = 0; idx < speakersList.length; idx++) {
-    const sp = speakersList[idx];
-    const spNameUpper = sp.name.toUpperCase();
-    if ((sUpper.includes("KỲ PHÙNG") || sUpper.includes("KY PHUNG")) && (spNameUpper.includes("KỲ PHÙNG") || spNameUpper.includes("KY PHUNG"))) return sp;
-    if ((sUpper.includes("VIỆT LONG") || sUpper.includes("VIET LONG")) && (spNameUpper.includes("VIỆT LONG") || spNameUpper.includes("VIET LONG"))) return sp;
-    if ((sUpper.includes("NGỌC THÀNH") || sUpper.includes("NGOC THANH")) && (spNameUpper.includes("NGỌC THÀNH") || spNameUpper.includes("NGOC THANH"))) return sp;
-    if (sUpper.includes("BECAMEX") && spNameUpper.includes("BECAMEX")) return sp;
-    if (sUpper.includes("OCHI") && spNameUpper.includes("OCHI")) return sp;
-    if ((sUpper.includes("QUANG VINH") || sUpper.includes("LÂM QUANG VINH")) && (spNameUpper.includes("QUANG VINH") || spNameUpper.includes("LAM QUANG VINH"))) return sp;
-    if ((sUpper.includes("MINH TUẤN") || sUpper.includes("MINH TUAN")) && (spNameUpper.includes("MINH TUẤN") || spNameUpper.includes("MINH TUAN"))) return sp;
-    if (sUpper.includes("MAJO") && spNameUpper.includes("MAJO")) return sp;
-    if ((sUpper.includes("LUÂN VŨ") || sUpper.includes("LUAN VU")) && (spNameUpper.includes("LUÂN VŨ") || spNameUpper.includes("LUAN VU"))) return sp;
-    if ((sUpper.includes("QUỐC CƯỜNG") || sUpper.includes("QUOC CUONG")) && (spNameUpper.includes("QUỐC CƯỜNG") || spNameUpper.includes("QUOC CUONG"))) return sp;
-    if (sUpper.includes("CHANG HEE") && spNameUpper.includes("CHANG HEE")) return sp;
-    if ((sUpper.includes("TRANG NGÂN") || sUpper.includes("TRANG NGAN")) && (spNameUpper.includes("TRANG NGÂN") || spNameUpper.includes("TRANG NGAN"))) return sp;
-    if (sUpper.includes("EDWARD") && spNameUpper.includes("EDWARD")) return sp;
-    if ((sUpper.includes("VĨNH LINH") || sUpper.includes("VINH LINH")) && (spNameUpper.includes("VĨNH LINH") || spNameUpper.includes("VINH LINH"))) return sp;
-  }
-  return null;
-}
-
 // ==========================================
 // 1. SHTP AGENDA SECTION COMPONENT
 // ==========================================
 function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSessions }) {
   const allOpen = Object.values(expandedSessions).every(Boolean);
-  const speakers = getShtpSpeakers(i);
 
   return b.jsx("section", {
     id: "agenda",
@@ -527,46 +484,13 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
                             className: "font-bold text-shtp-dark text-sm md:text-base leading-snug mb-1.5",
                             children: item.title
                           }),
-                          item.speaker && (() => {
-                            const spMatch = findSpeakerInList(item.speaker, speakers, i);
-                            return b.jsxs("div", {
-                              className: "mt-2.5 inline-flex items-center gap-2.5 sm:gap-3 bg-slate-50/90 hover:bg-white p-1.5 sm:p-2 pr-3 sm:pr-4 rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-sm hover:shadow transition-all duration-300 max-w-full group/speaker",
-                              children: [
-                                spMatch ? b.jsx("div", {
-                                  className: "relative shrink-0 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-shtp-blue shadow-md bg-white",
-                                  children: b.jsx("img", {
-                                    src: spMatch.image,
-                                    alt: spMatch.name,
-                                    className: "w-full h-full object-cover " + (spMatch.imageClass || ""),
-                                    onError: (e) => {
-                                      if (spMatch.fallback && e.target.src !== spMatch.fallback) {
-                                        e.target.src = spMatch.fallback;
-                                      }
-                                    }
-                                  })
-                                }) : b.jsx("div", {
-                                  className: "w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-shtp-blue/10 flex items-center justify-center text-shtp-blue font-bold text-xs sm:text-sm shrink-0",
-                                  children: item.speaker.charAt(0)
-                                }),
-                                b.jsxs("div", {
-                                  className: "flex flex-col text-left min-w-0",
-                                  children: [
-                                    b.jsx("span", {
-                                      className: "text-[11px] sm:text-xs md:text-sm font-bold text-shtp-dark flex items-center gap-1.5 truncate group-hover/speaker:text-shtp-blue transition-colors",
-                                      children: [
-                                        b.jsx("span", { className: "w-1.5 h-1.5 rounded-full bg-shtp-gold shrink-0" }),
-                                        spMatch ? spMatch.name : item.speaker
-                                      ]
-                                    }),
-                                    spMatch && spMatch.role ? b.jsx("span", {
-                                      className: "text-[10px] sm:text-[11px] text-slate-500 font-medium line-clamp-1 mt-0.5",
-                                      children: spMatch.role.replace(/\n/g, " – ")
-                                    }) : null
-                                  ]
-                                })
-                              ]
-                            });
-                          })()
+                          item.speaker && b.jsxs("div", {
+                            className: "inline-flex items-start gap-1.5 text-xs text-shtp-blue font-semibold bg-shtp-blue/5 px-2.5 py-1 rounded border border-shtp-blue/15 mt-1",
+                            children: [
+                              b.jsx("span", { className: "w-1.5 h-1.5 rounded-full bg-shtp-blue shrink-0 mt-1" }),
+                              b.jsx("span", { children: item.speaker })
+                            ]
+                          })
                         ]
                       })
                     ]
@@ -668,26 +592,11 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
                         !isOpen && b.jsxs("div", {
                           className: "flex flex-wrap items-center gap-1.5 mt-2",
                           children: [
-                            b.jsx("span", { className: "text-[11px] font-bold text-slate-400 uppercase tracking-wide mr-1", children: (session.speakerTag || s.agenda.speakerTag) + ":" }),
-                            session.speakers.map((sp, spIdx) => {
-                              const spMatch = findSpeakerInList(sp.name, speakers, i);
-                              return b.jsxs("span", {
-                                className: "inline-flex items-center gap-1.5 bg-slate-100/90 text-slate-800 text-[11px] sm:text-xs font-semibold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-slate-200/60 shadow-xs",
-                                children: [
-                                  spMatch ? b.jsx("img", {
-                                    src: spMatch.image,
-                                    alt: sp.name,
-                                    className: "w-4 h-4 sm:w-5 sm:h-5 rounded-full object-cover border border-shtp-blue/50 shrink-0 " + (spMatch.imageClass || ""),
-                                    onError: (e) => {
-                                      if (spMatch.fallback && e.target.src !== spMatch.fallback) {
-                                        e.target.src = spMatch.fallback;
-                                      }
-                                    }
-                                  }) : b.jsx("span", { className: "w-1.5 h-1.5 rounded-full bg-shtp-blue" }),
-                                  sp.name
-                                ]
-                              }, spIdx);
-                            })
+                            b.jsx("span", { className: "text-[11px] font-bold text-slate-400 uppercase tracking-wide", children: (session.speakerTag || s.agenda.speakerTag) + ":" }),
+                            session.speakers.map((sp, spIdx) => b.jsx("span", {
+                              className: "bg-slate-100 text-slate-700 text-xs font-semibold px-2 py-0.5 rounded-md",
+                              children: sp.name
+                            }, spIdx))
                           ]
                         })
                       ]
@@ -707,38 +616,23 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
                               children: session.speakerTag || s.agenda.speakerTag
                             }),
                             b.jsx("div", {
-                              className: "space-y-2.5",
-                              children: session.speakers.map((sp, spIdx) => {
-                                const spMatch = findSpeakerInList(sp.name, speakers, i);
-                                return b.jsxs("div", {
-                                  className: "bg-white p-3 sm:p-3.5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow flex items-center gap-3 sm:gap-3.5",
-                                  children: [
-                                    spMatch ? b.jsx("div", {
-                                      className: "relative shrink-0 w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full overflow-hidden border-2 border-shtp-blue shadow-md bg-white",
-                                      children: b.jsx("img", {
-                                        src: spMatch.image,
-                                        alt: sp.name,
-                                        className: "w-full h-full object-cover " + (spMatch.imageClass || ""),
-                                        onError: (e) => {
-                                          if (spMatch.fallback && e.target.src !== spMatch.fallback) {
-                                            e.target.src = spMatch.fallback;
-                                          }
-                                        }
-                                      })
-                                    }) : b.jsx("div", {
-                                      className: "w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-shtp-blue/10 text-shtp-blue flex items-center justify-center shrink-0 font-bold text-xs sm:text-sm",
-                                      children: sp.name.charAt(0)
-                                    }),
-                                    b.jsxs("div", {
-                                      className: "flex-1 min-w-0",
-                                      children: [
-                                        b.jsx("div", { className: "font-bold text-shtp-dark text-xs sm:text-sm tracking-tight", children: sp.name }),
-                                        b.jsx("div", { className: "text-[10px] sm:text-[11px] md:text-xs text-slate-500 font-medium leading-relaxed mt-0.5 whitespace-pre-line", children: sp.role })
-                                      ]
-                                    })
-                                  ]
-                                }, spIdx);
-                              })
+                              className: "space-y-2",
+                              children: session.speakers.map((sp, spIdx) => b.jsxs("div", {
+                                className: "bg-white p-3 rounded-xl border border-slate-100 shadow-sm flex flex-col gap-0.5",
+                                children: [
+                                  b.jsxs("div", {
+                                    className: "font-bold text-shtp-dark text-xs md:text-sm flex items-start gap-2",
+                                    children: [
+                                      b.jsx("span", { className: "w-1.5 h-1.5 rounded-full bg-shtp-blue shrink-0 mt-1" }),
+                                      b.jsx("span", { children: sp.name })
+                                    ]
+                                  }),
+                                  b.jsx("div", {
+                                    className: "text-[11px] md:text-xs text-slate-500 font-medium pl-3.5 leading-relaxed whitespace-pre-line",
+                                    children: sp.role
+                                  })
+                                ]
+                              }, spIdx))
                             })
                           ]
                         }),
