@@ -10,8 +10,8 @@ Website chính thức của sự kiện Hội nghị Quốc tế Thường niên
 
 ### 2. Các tính năng & nâng cấp:
 - **Chương trình chi tiết (Detailed Agenda)**:
-  - Phân đoạn sáng: Lễ Khai mạc trọng thể và Phiên toàn thể với 5 bài tham luận chiến lược từ các chuyên gia, viện trường và tập đoàn hàng đầu (Wrocław Ba Lan, Becamex IDC, Kurume Nhật Bản, ĐHQG TP.HCM, FPT Corporation). Có hiển thị thông tin Hội trường (`Academic Hall A`).
-  - Phân đoạn chiều: 4 phiên chuyên đề song song (Track 1, 2, 3 và Startup Pitchfest 2026) được thiết kế dạng thẻ tương tác với tính năng **Mở rộng / Thu gọn (Expand / Collapse)** tiện lợi, chống co giãn card và xoay mũi tên động. Có hiển thị thông tin Hội trường (`Academic Hall A, B, C, D`).
+  - Phân đoạn sáng: Lễ Khai mạc trọng thể và Phiên toàn thể với 5 bài tham luận chiến lược từ các chuyên gia, viện trường và tập đoàn hàng đầu (Wrocław Ba Lan, Becamex IDC, Kurume Nhật Bản, ĐHQG TP.HCM, FPT Corporation). Có hiển thị thông tin Hội trường (`Hội trường Hall A, lầu 5`).
+  - Phân đoạn chiều: 4 phiên chuyên đề song song (Track 1, 2, 3 và Startup Pitchfest 2026) được thiết kế dạng thẻ tương tác với tính năng **Mở rộng / Thu gọn (Expand / Collapse)** tiện lợi, chống co giãn card và xoay mũi tên động. Có hiển thị thông tin địa điểm chi tiết từng phiên (`Phòng LB 24, Lầu 2`, `Hội trường Hall A, Lầu 5`, `Hội trường Seminar 1, Tầng trệt`, `Phòng Seminar 2`).
 - **Diễn giả tiêu biểu (Distinguished Speakers)**:
   - Cập nhật đầy đủ danh sách 14 diễn giả hàng đầu trong nước và quốc tế theo yêu cầu mới nhất của Ban Tổ chức.
   - Tích hợp hệ thống fallback avatar nhận diện cao cấp chống lỗi vỡ ảnh.
