@@ -568,7 +568,16 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
                   children: [
                     b.jsx("span", { children: allOpen ? s.agenda.collapseAll : s.agenda.expandAll }),
                     b.jsx("svg", {
-                      className: "w-4 h-4 transition-transform duration-300 shrink-0 " + (allOpen ? "rotate-180" : ""), width: 16, height: 16, style: { width: "16px", height: "16px", minWidth: "16px" },
+                      className: "w-4 h-4 shrink-0",
+                      width: 16,
+                      height: 16,
+                      style: {
+                        width: "16px",
+                        height: "16px",
+                        minWidth: "16px",
+                        transform: allOpen ? "rotate(180deg)" : "rotate(0deg)",
+                        transition: "transform 0.3s ease"
+                      },
                       fill: "none",
                       stroke: "currentColor",
                       viewBox: "0 0 24 24",
@@ -579,13 +588,13 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
               ]
             }),
 
-            // Grid of 4 Parallel Session Cards
+            // Grid of 4 Parallel Session Cards with items-start to prevent cards stretching
             b.jsx("div", {
-              className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+              className: "grid grid-cols-1 md:grid-cols-2 gap-6 items-start",
               children: s.agenda.parallelSessions.map((session) => {
                 const isOpen = !!expandedSessions[session.id];
                 return b.jsxs("div", {
-                  className: "border-2 rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between " +
+                  className: "border-2 rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col " +
                     (isOpen ? "border-shtp-blue ring-2 ring-shtp-blue/20" : "border-slate-200 hover:border-slate-300"),
                   children: [
                     b.jsxs("div", {
@@ -633,7 +642,16 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
                             b.jsx("div", {
                               className: "w-8 h-8 rounded-full flex items-center justify-center transition-colors " + (isOpen ? "bg-shtp-blue text-white" : "bg-slate-100 text-slate-500"),
                               children: b.jsx("svg", {
-                                className: "w-4 h-4 transition-transform duration-300 shrink-0 " + (isOpen ? "rotate-180" : ""), width: 16, height: 16, style: { width: "16px", height: "16px", minWidth: "16px" },
+                                className: "w-4 h-4 shrink-0",
+                                width: 16,
+                                height: 16,
+                                style: {
+                                  width: "16px",
+                                  height: "16px",
+                                  minWidth: "16px",
+                                  transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                                  transition: "transform 0.3s ease"
+                                },
                                 fill: "none",
                                 stroke: "currentColor",
                                 viewBox: "0 0 24 24",
@@ -733,14 +751,23 @@ function ShtpAgendaSection({ s, i, expandedSessions, toggleSession, toggleAllSes
 
                     // Card Footer Action Button
                     b.jsx("div", {
-                      className: "p-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between",
+                      className: "p-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between mt-auto",
                       children: b.jsxs("button", {
                         onClick: () => toggleSession(session.id),
                         className: "text-xs font-bold text-shtp-blue hover:text-shtp-navy flex items-center gap-1.5 transition-colors cursor-pointer",
                         children: [
                           b.jsx("span", { children: isOpen ? s.agenda.collapseBtn : s.agenda.expandBtn }),
                           b.jsx("svg", {
-                            className: "w-3.5 h-3.5 transition-transform duration-300 shrink-0 " + (isOpen ? "rotate-180" : ""), width: 14, height: 14, style: { width: "14px", height: "14px", minWidth: "14px" },
+                            className: "w-3.5 h-3.5 shrink-0",
+                            width: 14,
+                            height: 14,
+                            style: {
+                              width: "14px",
+                              height: "14px",
+                              minWidth: "14px",
+                              transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                              transition: "transform 0.3s ease"
+                            },
                             fill: "none",
                             stroke: "currentColor",
                             viewBox: "0 0 24 24",
